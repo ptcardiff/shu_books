@@ -37,10 +37,8 @@ if (isset($_POST['price']))
     $collection = sanitizeString($_POST['collection']);
     $delivery_cost = sanitizeString($_POST['delivery_cost']);
     
-{
-    //$query = "INSERT INTO student (forename, surname, email_address, password, address1, address2, address3, address4, postcode, sortcode, accountno) VALUES('$forename', '$surname', '$email', '$password', '$address1', '$address2', '$address3', '$address4', '$postcode', '$sortcode', '$accountno')";
+{ 
     $query = "INSERT INTO item (BookID, Price, description, conditionID, collection, delivery_cost) VALUES ('$bookID', '$price', '$description', '$book_condition', '$collection', '$delivery_cost')";
-    //$query = "INSERT INTO item (Description, Price, ConditionID, Collection, Delivery_Cost, bookID) VALUES ('$description', '$price', '$book_condition', '$collection', '$delivery_cost', '$bookID')";
     queryMysql($query);
     header("Location: index.php");
     //die("Item created"); //display upload succesful message and return to homepage
@@ -53,7 +51,7 @@ echo <<<_END
         <div class="mainBlock">
             <form method='post' action='shusellitemdetails.php'>$error
                 <input type='text' id='price' placeholder=' Price' maxlength='10' name='price' class='registrationInput', value='$price' /> <br />
-                <input type='text' placeholder=' Book Description' maxlength='10' name='description' class='registrationInput' value='$description' /> <br />
+                <input type='text' placeholder=' Book Description' maxlength='200' name='description' class='registrationInput' value='$description' /> <br />
 _END;
         
 $query = mysql_query("SELECT * FROM book_condition"); 

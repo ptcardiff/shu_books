@@ -23,7 +23,7 @@ if ($loggedin)
     <div class="menu">
                 <ul>
                 <li>
-                     <a style=color:black; href="index.php">Home</a>
+                    <a style=color:black; href="index.php">Home</a>
                 </li>
                 <li>
                     <a style=color:black; href="shusignout.php">Sign Out</a>

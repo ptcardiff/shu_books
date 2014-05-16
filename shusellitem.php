@@ -28,7 +28,7 @@ if (isset($_POST['isbn']))
         }
                 if (mysql_num_rows(queryMysql($query)) == 0)
         {
-            $error = "ISBN not found in the database. Please add details here<br />";
+            $error = "ISBN not found in the database. Please add book details here<br />";
         }
     }
 }
