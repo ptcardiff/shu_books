@@ -13,18 +13,23 @@ if (isset($_POST['isbn']))
     $subject = sanitizeString($_POST['subject']);
 
 {
-    $query = "INSERT INTO book (isbn, title, synopsis, subject) VALUES ('$isbn', '$title', '$synopsis', '$subject')";
+    $query = "INSERT INTO book (isbn, title, synopsis, subjectID) VALUES ('$isbn', '$title', '$synopsis', '$subject')";
     queryMysql($query);
-    //add the book id to a cookie for use on next page
-    die("Book has been added. Please continue here"); //display upload succesful message and return to homepage
+    $query2 = "SELECT bookID FROM book WHERE isbn = '$isbn'";//add the book id to a cookie for use on next page
+    $result2 = mysql_query($query2);
+    $rows = mysql_num_rows($result2); //not the cleanest way to query but it works try and identify better way if time permits
+    for ($j = 0 ; $j < $rows ; ++$j)   
+        
+    $row = mysql_fetch_row($result2);
+    setcookie('sellbookid', $row[0]);
+    die("Book has been added. Please continue <a href='shusellitemdetails.php'>here</a>"); //display upload succesful message and return to homepage
 }
 }
-
-    
+   
 
 echo <<<_END
 <div class="outerBlock">
-    <h3>Add the remaining details for the item you wish to sell</h3>
+    <h3>Add book details</h3>
         <div class="mainBlock">
             <form method='post' action='addbookdetails.php'>$error
                 <input type='text' id='isbn' placeholder=' 10 character ISBN' maxlength='10' name='isbn' class='registrationInput'/> <br />

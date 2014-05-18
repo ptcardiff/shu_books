@@ -7,9 +7,9 @@ $error = $isbn = $title = "";
 if (isset($_POST['isbn']))
 
 {
-    $isbn = ($_POST['isbn']); // add sanitizeString function before $_POST
+    $isbn = sanitizeString($_POST['isbn']);
 
-    if ($isbn == "") //and tick box is not selected
+    if ($isbn == "") 
     {
         $error = "You have not entered an isbn number<br />";
     }
@@ -28,7 +28,7 @@ if (isset($_POST['isbn']))
         }
                 if (mysql_num_rows(queryMysql($query)) == 0)
         {
-            $error = "ISBN not found in the database. Please add book details here<br />";
+            $error = "ISBN not found in the database. Please add book details <a href='addbookdetails.php'>here</a><br />";
         }
     }
 }
