@@ -1,9 +1,13 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
 <?php // shulogin.php
+
 $db_hostname = 'localhost';
 $db_database = 'shu_books';
 $db_username = 'paul';
 $db_password = 'everton';
 $appname = "SHU Books"; 
+
+$currency = "£";
 
 $mysqli = new mysqli($db_hostname, $db_username, $db_password, $db_database);
 

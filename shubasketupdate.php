@@ -18,7 +18,7 @@ if(isset($_POST["type"]) && $_POST["type"]=='add')
        
 
     //MySqli query - get details of item from db using product code
-    $results = $mysqli->query("SELECT * FROM item WHERE itemid='$itemid' LIMIT 1");
+    $results = $mysqli->query("SELECT * FROM item WHERE itemid='$itemid'");
     $obj = $results->fetch_object();
    
     if ($results) { //we have the product info
