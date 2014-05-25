@@ -1,4 +1,15 @@
-.outerBlock
+.page-header
+{
+margin-top: 0;    
+}
+
+.panel-body
+{
+    padding-top: 0;
+}
+
+
+/*.outerBlock
 {
     width: 100%;
     text-align: center;
@@ -79,7 +90,7 @@
     background-color:#ccc;
 }
 
-/*ul
+ul
 {
     list-style-type:none;
     margin:5px;
@@ -94,5 +105,5 @@ li
     padding:10px;
     margin:0px;
     color:black
-}*/
-
+}
+*/

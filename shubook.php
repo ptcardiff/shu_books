@@ -6,7 +6,11 @@ echo "<link rel='stylesheet' type='text/css' href='shubooks.css' />";
 include_once 'shutoplevel.php';
 
 $current_url = base64_encode("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+?>
 
+<div class="container">
+    <div class="jumbotron text-center">
+<?php
 if (isset($_GET['view']))
     $view = sanitizeString($_GET['view']);
 
@@ -20,11 +24,24 @@ for ($j2 = 0 ; $j2 < $rows2 ; ++$j2)
     $row2 = mysql_fetch_row($result2);
     echo "<h3>$row2[1]</h3>";
 }
+?>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">            
+       <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="page-header">
+                        <h3>Items for sale</h3>
+                    </div>
+
+<?php
 
 echo "<div class='books'>";
-echo "<h3>Used books for sale</h3>";
     
-$results = $mysqli->query("SELECT b.bookid, b.title, i.itemid, i.description, i.price, c.condition_name, i.studentid, i.collection, i.delivery_cost, s.email_address FROM book b, item i, book_condition c, student s WHERE i.bookid = b.bookid AND i.conditionid = c.conditionid AND i.studentid = s.studentid AND i.bookid = '$view'");
+$results = $mysqli->query("SELECT b.bookid, b.title, i.itemid, i.description, i.price, c.condition_name, i.studentid, i.collection, i.delivery_cost, s.email_address FROM book b, item i, book_condition c, student s WHERE i.bookid = b.bookid AND i.conditionid = c.conditionid AND i.studentid = s.studentid AND i.bookid = '$view' AND i.purchased=0");
     if ($results) {
         //output results from database
         while($obj = $results->fetch_object())
@@ -32,9 +49,10 @@ $results = $mysqli->query("SELECT b.bookid, b.title, i.itemid, i.description, i.
            
             echo '<div class="product">';
             echo '<form method="post" action="cart_update.php">';
-            echo '<div class="product-content"><h3>'.$currency.$obj->price.'</h3>';
-            echo '<div class="product-desc">Condition: '.$obj->condition_name.'</div>';
-            echo '<div class="product-info">Seller: '.$obj->email_address.' <button class="add_to_cart">Add To Basket</button></div>';
+            echo '<h3>Item</h3>';
+            echo '<div class="product-content"><p>'.$currency.$obj->price.'</p>';
+            echo '<div class="product-desc"><p>'.$obj->condition_name.'</p></div>';
+            echo '<div class="product-info"><p>'.$obj->email_address.' <button class="add_to_cart">Add To Basket</button></p></div>';
             echo '</div>';
             echo '<input type="hidden" name="product_code" value="'.$obj->itemid.'" />';
             echo '<input type="hidden" name="type" value="add" />';
@@ -44,11 +62,19 @@ $results = $mysqli->query("SELECT b.bookid, b.title, i.itemid, i.description, i.
         }
    
 }
+echo "</div>"
 ?>
-</div>
-
-<div class="shopping-cart">
-<h2>Shopping Basket</h2>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="col-md-3">
+            <div class="shopping-cart">
+                <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="page-header">
+                                <h3>Shopping Basket</h3>
+                            </div>
 <?php
 if(isset($_SESSION["products"]))
 {
@@ -73,4 +99,9 @@ if(isset($_SESSION["products"]))
     echo 'Your Basket is empty';
 }
 ?>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </div>
 </div>
