@@ -6,8 +6,8 @@ $error = $email = $password = $studentid = "";
 
 if (isset($_POST['email']))
 {
-    $email = ($_POST['email']); // add sanitizeString function before $_POST
-    $password = ($_POST['password']); // add sanitizeString function before $_POST
+    $email = sanitizeString($_POST['email']); 
+    $password = sanitizeString($_POST['password']); 
 
     if ($email == "" || $password == "")
     {
@@ -16,7 +16,7 @@ if (isset($_POST['email']))
     else
     {
         $query = "SELECT * FROM student
-                WHERE email_address='$email' AND password='$password'";
+                WHERE email_address='$email' AND password='".md5($password)."'";
         $result = mysql_query($query);
         $rows = mysql_num_rows($result); 
         for ($j = 0 ; $j < $rows ; ++$j)
@@ -46,9 +46,9 @@ echo <<<_END
    <div class="row">
        <div class="col-md-4 col-md-offset-4">
         <form method='post' action='shusignin.php'>$error
-            <input type='email' placeholder=' Enter Email Address' class='form-control' maxlength='50' name='email'
+            <input type='email' placeholder='Enter Email Address' class='form-control' maxlength='50' name='email'
             value='$email' /><br />
-            <input type='password' placeholder=' Password' class='form-control' maxlength='15' name='password'
+            <input type='password' placeholder='Password' class='form-control' maxlength='15' name='password'
             value='$password' /><br />
             <input type='submit' class='btn btn-info' value='Sign In' /> &nbsp; <br /> <br />
             <a href="#forgot" data-toggle="modal">Forgotten Password?</a> <br /> <br />

@@ -45,7 +45,7 @@ if ($loggedin)
                     <a href="shusellitem.php">Sell Item</a>
                 </li>
                 <li>
-                    <a href="shureg.php">Account</a>
+                    <a href="shuaccount.php">Account</a>
                 </li>
                 <li>
                     <a href="view_cart.php">Shopping Basket</a>
