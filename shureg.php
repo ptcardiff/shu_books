@@ -75,20 +75,27 @@ include_once 'shutoplevel.php';
 
 $error = $email = $password = $forename = $surname = $address1 = $address2 = $address3 = $address4 = $postcode = $accountno = $sortcode = "";
 //if (isset($_SESSION['email'])) destroySession();
+if (isset($_SESSION["studentid"]))
+{
+    echo 'Hello';
+}
 
+else
+    
+{    
 if (isset($_POST['email']))
 {
-    $forename = ($_POST['forename']); // add sanitizeString function before $_POST
-    $surname = ($_POST['surname']); // add sanitizeString function before $_POST
-    $email = ($_POST['email']); // add sanitizeString function before $_POST
-    $password = ($_POST['password']); // add sanitizeString function before $_POST
-    $address1 = ($_POST['address1']);
-    $address2 = ($_POST['address2']);
-    $address3 = ($_POST['address3']);
-    $address4 = ($_POST['address4']);
-    $postcode = ($_POST['postcode']);
-    $accountno = ($_POST['accountno']);
-    $sortcode = ($_POST['sortcode']);
+    $forename = sanitizeString($_POST['forename']); 
+    $surname = sanitizeString($_POST['surname']); 
+    $email = sanitizeString($_POST['email']); 
+    $password = sanitizeString($_POST['password']); 
+    $address1 = sanitizeString($_POST['address1']);
+    $address2 = sanitizeString($_POST['address2']);
+    $address3 = sanitizeString($_POST['address3']);
+    $address4 = sanitizeString($_POST['address4']);
+    $postcode = sanitizeString($_POST['postcode']);
+    $accountno = sanitizeString($_POST['accountno']);
+    $sortcode = sanitizeString($_POST['sortcode']);
     
 
     if ($email == "" || $password == "")
@@ -118,28 +125,32 @@ if (isset($_POST['email']))
 // <!--<input type='date' placeholder='Date Of Birth' name='dob' class='registrationInput' value='$dob' /> <br />-->
 
 echo <<<_END
-<div class="outerBlock">
+<div class="container text-center">
+<div class="containerMiddle">
     <h3>Registration Form</h3>
-        <div class="mainBlock">
+   <div class="row">
+       <div class="col-md-4 col-md-offset-4">
             <form method='post' action='shureg.php'>$error
-                <input type='text' placeholder=' First name' maxlength='50' name='forename' class='registrationInput' value='$forename' /> <br />
-                <input type='text' placeholder=' Last name' maxlength='50' name='surname' class='registrationInput' value='$surname' /> <br />
-                <input type='email' placeholder=' Email address' maxlength='50' name='email' class='registrationInput' value='$email' />* <br />
-                <input type='password' placeholder=' Password' maxlength='15' name='password' class='registrationInput' value='$password' />* <br /> <br />
+                <input type='text' placeholder=' First name' maxlength='50' name='forename' class='form-control' value='$forename' /> <br />
+                <input type='text' placeholder=' Last name' maxlength='50' name='surname' class='form-control' value='$surname' /> <br />
+                <input type='email' placeholder=' Email address' maxlength='50' name='email' class='form-control' value='$email' /> <br />
+                <input type='password' placeholder=' Password' maxlength='15' name='password' class='form-control' value='$password' /> <br /> <br />
                 <label> Add Address Details </label> <br />
-                <input type='text' placeholder=' Address Line 1' maxlength='50' name='address1' class='registrationInput' value='$address1' /> <br />
-                <input type='text' placeholder=' Address Line 2' maxlength='50' name='address2' class='registrationInput' value='$address2' /> <br />
-                <input type='text' placeholder=' Address Line 3' maxlength='50' name='address3' class='registrationInput' value='$address3' /> <br />
-                <input type='text' placeholder=' Address Line 4' maxlength='50' name='address4' class='registrationInput' value='$address4' /> <br />
-                <input type='text' placeholder=' Post Code' maxlength='10' name='postcode' class='registrationInput' value='$postcode' /> <br /> <br />
+                <input type='text' placeholder=' Address Line 1' maxlength='50' name='address1' class='form-control' value='$address1' /> <br />
+                <input type='text' placeholder=' Address Line 2' maxlength='50' name='address2' class='form-control' value='$address2' /> <br />
+                <input type='text' placeholder=' Address Line 3' maxlength='50' name='address3' class='form-control' value='$address3' /> <br />
+                <input type='text' placeholder=' Address Line 4' maxlength='50' name='address4' class='form-control' value='$address4' /> <br />
+                <input type='text' placeholder=' Post Code' maxlength='10' name='postcode' class='form-control' value='$postcode' /> <br /> <br />
                 <label> Add Account Details </label> <br />
                 <label> (Only required for testing purposes) </label> <br />
-                <label> (Strict encryption will be implemented on full version) </label> <br >
-                <input type='text' placeholder=' Account Number' maxlength='8' name='accountno' class='registrationInput' value='$accountno' /> <br />
-                <input type='text' placeholder=' Sort Code' maxlength='6' name='sortcode' class='registrationInput' value='$sortcode' /> <br /> <br />
-                <input type='submit' class='button' value='Register' /> <br />
+                <input type='text' placeholder=' Account Number' maxlength='8' name='accountno' class='form-control' value='$accountno' /> <br />
+                <input type='text' placeholder=' Sort Code' maxlength='6' name='sortcode' class='form-control' value='$sortcode' /> <br /> <br />
+                <input type='submit' class='btn btn-info' value='Register' /> <br />
             </form>
         </div>
+        </div>
+</div>
 </div>
 _END;
+}
 ?>

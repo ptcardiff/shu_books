@@ -8,6 +8,23 @@ margin-top: 0;
     padding-top: 0;
 }
 
+.registrationInput
+{
+    //width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 5px;
+    text-align: left;
+    right: auto;
+    width: 250px;
+    height: 30px; 
+}
+
+.containerMiddle
+{
+    padding-bottom: 50px;
+}
+
 
 /*.outerBlock
 {
@@ -30,18 +47,6 @@ margin-top: 0;
     border: 1px solid #c9e1f4;
     text-align: center;
     
-}
-.registrationInput
-{
-    //width: 100%;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    margin: 5px;
-    text-align: left;
-    right: auto;
-    width: 250px;
-    height: 30px; 
-}
 .button
 {
     padding-top: 2px;

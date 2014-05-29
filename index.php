@@ -4,15 +4,22 @@ include_once 'shutoplevel.php';
 
 $title = $search = $bookID = "";
 
-echo <<<_END
-    <div class="outerBlock">
-    <form action='index.php' method='post'>
-    <input type='text' placeholder=' Search SHU books' id='search' name='search' class='registrationInput'/><input type='submit' value='Search' />
-    <h2>SHU Books Homepage</h2>
-_END;
+?>
 
+    <div class="container">
+    <div class="jumbotron text-center">
+    <form action='index.php' method='post'>
+    <input type='text' placeholder=' Search SHU books' id='search' name='search' class='registrationInput'/><input type='submit' class="btn btn-info" value='Search' />
+    <h2>SHU Books Homepage</h2>
+    </div>
+    </div>
+
+<div class="container text-center">
+    <div class="containerMiddle">
+<?php
 if (isset($_POST['search']))
 {
+
     echo "<h3>Search results</h3>";
     $search = sanitizeString($_POST['search']);
     
@@ -25,7 +32,7 @@ if (isset($_POST['search']))
             $row = mysql_fetch_row($result);
 {
 echo <<<_END
-                <ul>
+                <ul style="list-style:none;">
                     <li><a href='shubook.php?view=$row[0]'>$row[1]</a></li>
                 </ul>        
 _END;
@@ -35,7 +42,7 @@ _END;
 else
 {
 echo  "<h3>Top 10 Best Sellers</h3>";
-$query = "SELECT * FROM book";
+$query = "SELECT * FROM book ORDER BY BookID LIMIT 10 ";
 $result = mysql_query($query);
 
 if (!$result) die ("Database access failed: " . mysql_error());
@@ -45,14 +52,14 @@ for ($j = 0 ; $j < $rows ; ++$j)
 {
         $row = mysql_fetch_row($result);
 echo <<<_END
-                <ul>
+                <ul style="list-style:none;">
                     <li><a href='shubook.php?view=$row[0]'>$row[1]</a></li>
                 </ul>        
 _END;
 }
 }
-echo <<<_END
-    </div>
+?>
 
-_END;
+    </div>
+</div>
 

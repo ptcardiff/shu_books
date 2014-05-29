@@ -3,7 +3,7 @@
 echo "<link rel='stylesheet' type='text/css' href='shubooks.css' />";
 include_once 'shutoplevel.php';
 
-$error = $bookID = $description = $price = $collection = $book_condition = $delivery_cost = "";
+$error = $bookID = $description = $price = $collection = $book_condition = $delivery_cost = $image = "";
 
 if (isset($_COOKIE['sellbookid']))
 $bookID = $_COOKIE['sellbookid'];
@@ -20,9 +20,16 @@ for ($j = 0 ; $j < $rows ; ++$j)
 {
         $row = mysql_fetch_row($result);
 echo <<<_END
-<label>Book Name<li>$row[1]</li></label>
-<label>Book Synopsis<li>$row[2]</li></label>
-<label>ISBN<li>$row[4]</li></label>
+<div class="container">
+<div class="jumbotron">
+<ul style="list-style:none;">
+<label>Book Name</label> <li>$row[1]</li>
+<label>Book Synopsis</label> <li>$row[2]</li>
+<label>ISBN</label><li>$row[4]</li>
+</ul>
+</div>
+</div>
+        
 _END;
 }
 
@@ -36,9 +43,10 @@ if (isset($_POST['price']))
     $book_condition = sanitizeString($_POST['book_condition']); //add Javascript for checking that book condition has been completed
     $collection = sanitizeString($_POST['collection']);
     $delivery_cost = sanitizeString($_POST['delivery_cost']);
+    $image = sanitizeString($_POST['image']);
     
 { 
-    $query = "INSERT INTO item (BookID, Price, description, conditionID, collection, delivery_cost) VALUES ('$bookID', '$price', '$description', '$book_condition', '$collection', '$delivery_cost')";
+    $query = "INSERT INTO item (BookID, Price, description, conditionID, collection, delivery_cost, image) VALUES ('$bookID', '$price', '$description', '$book_condition', '$collection', '$delivery_cost', $image)";
     queryMysql($query);
     header("Location: index.php");
     //die("Item created"); //display upload succesful message and return to homepage
@@ -46,17 +54,19 @@ if (isset($_POST['price']))
 }
 
 echo <<<_END
-<div class="outerBlock">
-    <h3>Add the remaining details for the item you wish to sell</h3>
-        <div class="mainBlock">
-            <form method='post' action='shusellitemdetails.php'>$error
-                <input type='text' id='price' placeholder=' Price' maxlength='10' name='price' class='registrationInput', value='$price' /> <br />
-                <input type='text' placeholder=' Book Description' maxlength='200' name='description' class='registrationInput' value='$description' /> <br />
+<div class="container">
+  <div class="containerMiddle">
+   <h4>Add the remaining details for the item you wish to sell</h4>
+   <form method='post' action='shusellitemdetails.php'>$error
+   <div class="row">
+       <div class="col-md-4 col-md-offset-4">
+            <input type='text' id='price' placeholder='Price' maxlength='10' name='price' class='form-control', value='$price' /> <br />
+            <input type='text' placeholder='Book Description' maxlength='200' name='description' class='form-control' value='$description' /> <br />
 _END;
         
 $query = mysql_query("SELECT * FROM book_condition"); 
 
-echo '<select name="book_condition">'; 
+echo '<select name="book_condition" class="form-control">'; 
 echo '<option value="" disabled selected>Select the condition of the book...</option>';
 while ($row = mysql_fetch_array($query)) {
    echo '<option value="'.$row[0].'">'.$row[1].'</option>';
@@ -66,11 +76,20 @@ echo '</select><br />';
         
 echo <<<_END
                 <input type='hidden' name='collection' value=0 />             
+                <div class="form-group">
+                <div class="checkbox">
+                <label>
                 <input type='checkbox' onclick="this.form.delivery_cost.style.visibility = this.checked? 'hidden' : 'visible';" name ='collection' value=1>Collection only?<br />
-                <input type='text' id='delivery_cost' placeholder=' Delivery Cost' maxlength='10' name='delivery_cost' class='registrationInput' value='$delivery_cost' /> <br />
-                <input type="submit" value="ADD RECORD" />
+                </label>
+                </div>
+                </div>
+                <input type='text' id='delivery_cost' placeholder='Delivery Cost' maxlength='10' name='delivery_cost' class='form-control' value='$delivery_cost' /> <br />
+                <label>Image</label><input type='file' name='image'/> <br />
+                <input type="submit" class="btn btn-info" value="Add Item" />
+                </div>
+                </div>
             </form>
-        </div>
+    </div>
 </div>
 _END;
 

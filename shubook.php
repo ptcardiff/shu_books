@@ -29,6 +29,7 @@ for ($j2 = 0 ; $j2 < $rows2 ; ++$j2)
 </div>
 
 <div class="container">
+ <div class="containerMiddle">
     <div class="row">            
        <div class="col-md-9">
             <div class="panel panel-default">
@@ -49,10 +50,10 @@ $results = $mysqli->query("SELECT b.bookid, b.title, i.itemid, i.description, i.
            
             echo '<div class="product">';
             echo '<form method="post" action="cart_update.php">';
-            echo '<h3>Item</h3>';
-            echo '<div class="product-content"><p>'.$currency.$obj->price.'</p>';
-            echo '<div class="product-desc"><p>'.$obj->condition_name.'</p></div>';
-            echo '<div class="product-info"><p>'.$obj->email_address.' <button class="add_to_cart">Add To Basket</button></p></div>';
+            echo '<div class="product-info"><p><b>Seller: </b>' .$obj->email_address.'</p>';
+            echo '<div class="product-content"><p><b>Price: </b>'.$currency.$obj->price.'</p>';
+            echo '<div class="product-desc"><p><b>Book Condition: </b>'.$obj->condition_name.'</p></div>';
+            echo '<button class="btn btn-info">Add To Basket</button></div>';
             echo '</div>';
             echo '<input type="hidden" name="product_code" value="'.$obj->itemid.'" />';
             echo '<input type="hidden" name="type" value="add" />';
@@ -64,7 +65,7 @@ $results = $mysqli->query("SELECT b.bookid, b.title, i.itemid, i.description, i.
 }
 echo "</div>"
 ?>
-                </div>
+             </div>
             </div>
         </div>
  
@@ -83,17 +84,17 @@ if(isset($_SESSION["products"]))
     foreach ($_SESSION["products"] as $cart_itm)
     {
         echo '<li class="cart-itm">';
-        echo '<span class="remove-itm"><a href="cart_update.php?removep='.$cart_itm["code"].'&return_url='.$current_url.'">Remove from Basket</a></span>';
-        echo '<h3>'.$cart_itm["name"].'</h3>';
-        echo '<div class="p-code">P code : '.$cart_itm["code"].'</div>';
+        echo '<p><b>'.$cart_itm["name"].'</b></p>';
         echo '<div class="p-price">Price :'.$currency.$cart_itm["price"].'</div>';
+        echo '<span class="remove-itm"><a href="cart_update.php?removep='.$cart_itm["code"].'&return_url='.$current_url.'">Remove from Basket</a></span>';
+        //echo '<div class="p-code">P code : '.$cart_itm["code"].'</div>';
         echo '</li>';
         $subtotal = ($cart_itm["price"]);
         $total = ($total + $subtotal);
     }
     echo '</ol>';
-    echo '<span class="check-out-txt"><strong>Total : '.$currency.$total.'</strong>';
-    echo '<a href="view_cart.php">Go to Check-out</a></span>';
+    echo '<span class="check-out-txt"><strong>Total : '.$currency.$total.'</strong> </br>';
+    echo '<a href="view_cart.php">Go to Check-out</a></span> </br>';
     echo '<span class="empty-cart"><a href="cart_update.php?emptycart=1&return_url='.$current_url.'">Empty Basket</a></span>';
 }else{
     echo 'Your Basket is empty';
@@ -104,4 +105,5 @@ if(isset($_SESSION["products"]))
             </div>        
         </div>
     </div>
+  </div>
 </div>

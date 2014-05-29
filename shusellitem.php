@@ -34,13 +34,17 @@ if (isset($_POST['isbn']))
 }
 
 echo <<<_END
-<div class="outerBlock">
-    <h3>Enter the ISBN of the book you want to sell</h3>
-        <div class="mainBlock">
+<div class="container text-center">
+    <div class="containerMiddle">
+    <h4>Enter the ISBN of the book you want to sell</h4>
+   <div class="row">
+       <div class="col-md-4 col-md-offset-4">
             <form method='post' action='shusellitem.php'>$error
-                <input type='text' placeholder=' Enter 10 digit ISBN number' maxlength='10' name='isbn' class='registrationInput' value='$isbn' /> <br />
-                <input type='submit' class='button' value='Retrieve book details'/> <br />
+                <input type='text' placeholder='Enter 10 digit ISBN number' maxlength='10' name='isbn' class='form-control' value='$isbn' /> <br />
+                <input type='submit' class='btn btn-info' value='Retrieve book details'/> <br />
             </form>
+        </div>
+        </div>
         </div>
 </div>
 _END;

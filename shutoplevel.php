@@ -45,10 +45,10 @@ if ($loggedin)
                     <a href="shusellitem.php">Sell Item</a>
                 </li>
                 <li>
-                    <a href="shuaccount.php">Account</a>
+                    <a href="shureg.php">Account</a>
                 </li>
                 <li>
-                    <a href="shubasket.php">Shopping Basket</a>
+                    <a href="view_cart.php">Shopping Basket</a>
                 </li>
                 <li>
                     <a href="shusignout.php">Sign Out</a>
@@ -80,12 +80,12 @@ _END;
 </div>
         
        
-<!--        <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
                 <p class="navbar-text pull-left">Prototype created by Paul Cardiff</p>
                 <a href="#contact" data-toggle="modal" class="navbar-btn btn-info btn pull-right">Contact SHU Books</a> 
             </div>                     
-        </div>-->
+        </div>
         
 <div class="modal fade" id="contact" role="dialog">
     <div class="modal-dialog">

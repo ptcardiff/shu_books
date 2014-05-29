@@ -17,13 +17,13 @@ if(isset($_POST["type"]) && $_POST["type"]=='add')
     $return_url     = base64_decode($_POST["return_url"]); //return url
    
     //MySqli query - get details of item from db using product code
-    $results = $mysqli->query("SELECT itemid, studentid, description, price FROM item WHERE itemid='$itemid'");
+    $results = $mysqli->query("SELECT itemid, title, studentid, description, price FROM item, book WHERE item.bookid = book.bookid AND itemid='$itemid' AND purchased =0");
     $obj = $results->fetch_object();
    
     if ($results) { //we have the product info
        
         //prepare array for the session variable
-        $new_product = array(array('name'=>$obj->studentid, 'code'=>$itemid, 'price'=>$obj->price));
+        $new_product = array(array('name'=>$obj->title, 'code'=>$itemid, 'price'=>$obj->price));
        
         if(isset($_SESSION["products"])) //if we have the session
         {

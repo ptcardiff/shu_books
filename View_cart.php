@@ -7,22 +7,21 @@ $current_url = base64_encode("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_U
     if(isset($_SESSION["products"]))
     {
         $total = 0;
-        //echo '<form method="post" action="PAYMENT-GATEWAY">';
-        echo '<ul>';
+        echo '<div class="container text-center">';
+        echo '<div class="containerMiddle">';
+        echo '<ul style="list-style:none;">';
         $cart_items = 0;
         foreach ($_SESSION["products"] as $cart_itm)
         {
            $itemid = $cart_itm["code"];
-           $results = $mysqli->query("SELECT itemid, studentid, description, price FROM item WHERE itemid='$itemid' AND purchased=0");
+           $results = $mysqli->query("SELECT itemid, title, studentid, description, price FROM item, book WHERE item.bookid = book.bookid AND itemid='$itemid'");
            $obj = $results->fetch_object();
            
             echo '<li class="cart-itm">';
-            echo '<span class="remove-itm"><a href="cart_update.php?removep='.$cart_itm["code"].'&return_url='.$current_url.'">Remove from Basket</a></span>';
-            echo '<div class="p-price">'.$currency.$obj->price.'</div>';
             echo '<div class="product-info">';
-            echo '<h3>'.$obj->studentid.' (Code :'.$itemid.')</h3> ';
-            echo '<div>'.$obj->description.'</div>';
-            echo '<span class="purchase-itm"><a href="shupurchase.php?purchase='.$cart_itm["code"].'">Purchase Item</a></span>';
+            echo '<h4>'.$obj->title.' (Code :'.$itemid.')</h4> ';
+            echo '<div class="p-price">'.$currency.$obj->price.'</div>';
+            echo '<span class="remove-itm"><a href="cart_update.php?removep='.$cart_itm["code"].'&return_url='.$current_url.'">Remove from Basket</a></span></br>';
             echo '</div>';
             echo '</li>';
             $subtotal = ($cart_itm["price"]);
@@ -37,12 +36,18 @@ $current_url = base64_encode("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_U
         echo '</ul>';
         echo '<span class="check-out-txt">';
         echo '<strong>Total : '.$currency.$total.'</strong>  ';
+        echo '<span class="purchase-itm"><a href="shupurchase.php?purchase='.$cart_itm["code"].'">Place your order</a></span>';
         echo '</span>';
-        echo '</form>';
+        echo '</div>';
+        echo '</div>';
        
     }
     else
     {
+        echo '<div class="container text-center">';
+        echo '<div class="containerMiddle">';
         echo 'Your Basket is empty';
+        echo '</div>';
+        echo '</div>';
     }
 ?>
